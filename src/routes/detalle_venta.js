@@ -4,10 +4,10 @@ module.exports = app => {
     app.route('/detalle_venta')
         .get((req, res) => {
             Detalle_venta.findAll({
-                order: [
-                    ['id_detalle_venta', 'ASC']
-                ]
-            })
+                    order: [
+                        ['id_detalle_venta', 'ASC']
+                    ]
+                })
                 .then(result => res.json(result))
                 .catch(error => {
                     res.status(412).json({
@@ -18,8 +18,14 @@ module.exports = app => {
 
         .post((req, res) => {
             Detalle_venta.create(req.body)
-                .then(result => res.json(result))
-                .catch(error => res.json(error));
+                .then(result => res.json({
+                    msg: 'success',
+                    body: result
+                }))
+                .catch(error => res.json({
+                    msg: 'error',
+                    body: error
+                }));
         });
 
     app.route('/detalle_venta/:id')
