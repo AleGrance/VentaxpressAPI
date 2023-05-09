@@ -25,14 +25,5 @@ module.exports = (sequelize, DataTypes) => {
         Cliente.hasMany(models.Cabecera_venta);
     };
 
-    Cliente.associate = (models) => {
-        Cliente.hasMany(models.Cabecera_venta, {
-            foreignKey: {
-                name: 'id_cabecera_venta',
-                allowNull: false
-            }
-        });
-    };
-
     return Cliente;
 };

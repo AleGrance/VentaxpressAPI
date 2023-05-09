@@ -21,14 +21,22 @@ module.exports = app => {
 
         .post((req, res) => {
             Cabecera_venta.create(req.body)
-                .then(result => res.json(result))
-                .catch(error => res.json(error.errors[0].message));
+                .then(result => res.json({
+                    msg: 'success',
+                    body: result
+                }))
+                .catch(error => res.json({
+                    msg: 'error',
+                    body: error
+                }));
         });
 
-        app.route('/cabecera_venta_total')
+    app.route('/cabecera_venta_total')
         .get((req, res) => {
             Cabecera_venta.count()
-                .then(result => res.json({total:result}))
+                .then(result => res.json({
+                    total: result
+                }))
                 .catch(error => {
                     res.status(412).json({
                         msg: error.message

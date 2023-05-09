@@ -19,7 +19,7 @@ module.exports = app => {
         .post((req, res) => {
             Detalle_venta.create(req.body)
                 .then(result => res.json(result))
-                .catch(error => res.json(error.errors[0].message));
+                .catch(error => res.json(error));
         });
 
     app.route('/detalle_venta/:id')
