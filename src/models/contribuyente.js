@@ -44,8 +44,6 @@ module.exports = (sequelize, DataTypes) => {
     Contribuyente.associate = (models) => {
         Contribuyente.hasMany(models.Plan_de_cuenta);
         Contribuyente.hasMany(models.Cabecera_compra);
-        Contribuyente.hasMany(models.Cabecera_venta);
-
     };
 
     return Contribuyente;

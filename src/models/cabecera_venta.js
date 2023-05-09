@@ -49,8 +49,13 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     Cabecera_venta.associate = (models) => {
-        Cabecera_venta.belongsTo(models.Cliente);
-        Cabecera_venta.belongsTo(models.Contribuyente);
+        Cabecera_venta.belongsTo(models.Cliente, {
+            foreignKey: {
+                name: 'id_cliente',
+                allowNull: false
+            }
+        });
     };
+
     return Cabecera_venta;
 };
