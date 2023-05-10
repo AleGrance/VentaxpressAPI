@@ -3,13 +3,18 @@ const {
 } = require("sequelize");
 module.exports = app => {
     const Cabecera_venta = app.db.models.Cabecera_venta;
+    const Cliente = app.db.models.Cliente;
 
     app.route('/cabecera_venta')
         .get((req, res) => {
             Cabecera_venta.findAll({
                     order: [
                         ['id_cabecera_venta', 'ASC']
-                    ]
+                    ],
+                    include: [{
+                        model: Cliente,
+                        attributes: ['razon_social_cliente']
+                    }]
                 })
                 .then(result => res.json(result))
                 .catch(error => {
