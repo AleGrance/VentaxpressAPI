@@ -28,6 +28,22 @@ module.exports = app => {
                 }));
         });
 
+    app.route('/detalle_venta/:nro')
+        .get((req, res) => {
+            Detalle_venta.findAll({
+                    where: {
+                        nro_factura_venta: req.params.nro
+                    }
+                })
+                .then(result => res.json(result))
+                .catch(error => {
+                    res.status(404).json({
+                        msg: error.message
+                    });
+                })
+        })
+
+
     app.route('/detalle_venta/:id')
         .get((req, res) => {
             Detalle_venta.findOne({
