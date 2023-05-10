@@ -22,7 +22,12 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     Cliente.associate = (models) => {
-        Cliente.hasMany(models.Cabecera_venta);
+        Cliente.hasMany(models.Cabecera_venta, {
+            foreignKey: {
+                name: 'id_cliente',
+                allowNull: false
+            }
+        });
     };
 
     return Cliente;
