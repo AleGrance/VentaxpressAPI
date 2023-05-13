@@ -48,10 +48,31 @@ module.exports = (sequelize, DataTypes) => {
         }
     });
 
+    // Cliente
     Cabecera_venta.associate = (models) => {
         Cabecera_venta.belongsTo(models.Cliente, {
             foreignKey: {
                 name: 'id_cliente',
+                allowNull: false
+            }
+        });
+    };
+
+    // Caja
+    // Cabecera_venta.associate = (models) => {
+    //     Cabecera_venta.belongsTo(models.Caja, {
+    //         foreignKey: {
+    //             name: 'id_caja',
+    //             allowNull: false
+    //         }
+    //     });
+    // };
+
+    // Usuario
+    Cabecera_venta.associate = (models) => {
+        Cabecera_venta.belongsTo(models.Users, {
+            foreignKey: {
+                name: 'user_id',
                 allowNull: false
             }
         });
