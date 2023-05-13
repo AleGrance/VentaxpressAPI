@@ -42,11 +42,20 @@ module.exports = (sequelize, DataType) => {
 
     /**
      * 
-     *  ASSOCIATIONS HASMANY
+     *  ASSOCIATIONS
      * 
      */
 
     Users.associate = (models) => {
+        // BELONGSTO
+        Users.belongsTo(models.Roles, {
+            foreignKey: {
+                name: 'role_id',
+                allowNull: false
+            }
+        });
+
+        //HASMANY
         // Cabecera_venta
         Users.hasMany(models.Cabecera_venta, {
             foreignKey: {
@@ -62,19 +71,11 @@ module.exports = (sequelize, DataType) => {
                 allowNull: false
             }
         });
-    };
 
-    /**
-     * 
-     *  ASSOCIATIONS BELONGSTO
-     * 
-     */
-
-
-    Users.associate = (models) => {
-        Users.belongsTo(models.Roles, {
+        // Caja
+        Users.hasMany(models.Caja, {
             foreignKey: {
-                name: 'role_id',
+                name: 'id_caja',
                 allowNull: false
             }
         });

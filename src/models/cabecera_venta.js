@@ -57,8 +57,14 @@ module.exports = (sequelize, DataTypes) => {
         // }
     });
 
-    // Associations
+    /**
+     * 
+     *  ASSOCIATIONS
+     * 
+     */
+
     Cabecera_venta.associate = (models) => {
+        //BELONGSTO
         // Cliente
         Cabecera_venta.belongsTo(models.Cliente, {
             foreignKey: {
@@ -68,12 +74,12 @@ module.exports = (sequelize, DataTypes) => {
         });
 
         // Caja
-        // Cabecera_venta.belongsTo(models.Caja, {
-        //     foreignKey: {
-        //         name: 'id_caja',
-        //         allowNull: false
-        //     }
-        // });
+        Cabecera_venta.belongsTo(models.Caja, {
+            foreignKey: {
+                name: 'id_caja',
+                allowNull: false
+            }
+        });
 
         // Usuario
         Cabecera_venta.belongsTo(models.Users, {
