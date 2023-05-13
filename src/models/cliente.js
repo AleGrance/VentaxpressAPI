@@ -21,7 +21,11 @@ module.exports = (sequelize, DataTypes) => {
         }
     });
 
-    // Associations
+    /**
+     * 
+     *  ASSOCIATIONS
+     * 
+     */
     Cliente.associate = (models) => {
         // Cabecera_venta
         Cliente.hasMany(models.Cabecera_venta, {

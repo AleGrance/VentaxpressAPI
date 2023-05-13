@@ -52,5 +52,5 @@ module.exports = (sequelize, DataTypes) => {
 
     };
 
-    return Cliente;
+    return Arqueo;
 };
