@@ -40,16 +40,43 @@ module.exports = (sequelize, DataType) => {
         }
     });
 
+    /**
+     * 
+     *  ASSOCIATIONS HASMANY
+     * 
+     */
+
     Users.associate = (models) => {
-        Users.hasMany(models.Tasks);
+        // Cabecera_venta
+        Users.hasMany(models.Cabecera_venta, {
+            foreignKey: {
+                name: 'user_id',
+                allowNull: false
+            }
+        });
+
+        // Tasks
+        Users.hasMany(models.Tasks, {
+            foreignKey: {
+                name: 'user_id',
+                allowNull: false
+            }
+        });
     };
+
+    /**
+     * 
+     *  ASSOCIATIONS BELONGSTO
+     * 
+     */
+
 
     Users.associate = (models) => {
         Users.belongsTo(models.Roles, {
             foreignKey: {
                 name: 'role_id',
                 allowNull: false
-              }
+            }
         });
     };
 

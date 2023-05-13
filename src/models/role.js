@@ -12,6 +12,13 @@ module.exports = (sequelize, DataType) => {
         }
     });
 
+     /**
+     * 
+     *  ASSOCIATIONS hasmany
+     * 
+     */
+
+
     Roles.associate = (models) => {
         Roles.hasMany(models.Users, {
             foreignKey: {

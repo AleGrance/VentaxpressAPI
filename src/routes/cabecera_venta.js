@@ -4,6 +4,7 @@ const {
 module.exports = app => {
     const Cabecera_venta = app.db.models.Cabecera_venta;
     const Cliente = app.db.models.Cliente;
+    const Users = app.db.models.Users;
 
     app.route('/cabecera_venta')
         .get((req, res) => {
@@ -12,9 +13,14 @@ module.exports = app => {
                         ['id_cabecera_venta', 'ASC']
                     ],
                     include: [{
-                        model: Cliente,
-                        attributes: ['razon_social_cliente']
-                    }]
+                            model: Cliente,
+                            attributes: ['razon_social_cliente', 'ruc_cliente']
+                        },
+                        {
+                            model: Users,
+                            attributes: ['user_fullname']
+                        }
+                    ]
                 })
                 .then(result => res.json(result))
                 .catch(error => {

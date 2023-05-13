@@ -36,9 +36,16 @@ module.exports = (sequelize, DataType) => {
         }
     });
 
+     /**
+     * 
+     *  ASSOCIATIONS BELONGSTO
+     * 
+     */
+
     Tasks.associate = (models) => {
         Tasks.belongsTo(models.Users, {
             foreignKey: {
+                name: 'user_id',
                 allowNull: false
               }
         });

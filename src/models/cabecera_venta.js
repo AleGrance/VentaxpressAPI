@@ -1,4 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
+    //const Cliente = app.db.models.Cliente;
     const Cabecera_venta = sequelize.define('Cabecera_venta', {
         id_cabecera_venta: {
             type: DataTypes.INTEGER,
@@ -45,31 +46,36 @@ module.exports = (sequelize, DataTypes) => {
         exento: {
             type: DataTypes.INTEGER,
             allowNull: false
-        }
+        },
+        // id_cliente: {
+        //     type: DataTypes.INTEGER,
+        //     allowNull: false,
+        //     references: {
+        //         model: Cliente,
+        //         key: 'id_cliente'
+        //     }
+        // }
     });
 
-    // Cliente
+    // Associations
     Cabecera_venta.associate = (models) => {
+        // Cliente
         Cabecera_venta.belongsTo(models.Cliente, {
             foreignKey: {
                 name: 'id_cliente',
                 allowNull: false
             }
         });
-    };
 
-    // Caja
-    // Cabecera_venta.associate = (models) => {
-    //     Cabecera_venta.belongsTo(models.Caja, {
-    //         foreignKey: {
-    //             name: 'id_caja',
-    //             allowNull: false
-    //         }
-    //     });
-    // };
+        // Caja
+        // Cabecera_venta.belongsTo(models.Caja, {
+        //     foreignKey: {
+        //         name: 'id_caja',
+        //         allowNull: false
+        //     }
+        // });
 
-    // Usuario
-    Cabecera_venta.associate = (models) => {
+        // Usuario
         Cabecera_venta.belongsTo(models.Users, {
             foreignKey: {
                 name: 'user_id',

@@ -21,7 +21,9 @@ module.exports = (sequelize, DataTypes) => {
         }
     });
 
+    // Associations
     Cliente.associate = (models) => {
+        // Cabecera_venta
         Cliente.hasMany(models.Cabecera_venta, {
             foreignKey: {
                 name: 'id_cliente',
