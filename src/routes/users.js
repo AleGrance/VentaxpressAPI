@@ -33,8 +33,14 @@ module.exports = app => {
             user.user_password = CryptoJS.AES.encrypt(user.user_password, 'secret').toString();
             // Insert new user
             Users.create(user)
-                .then(result => res.json(result))
-                .catch(error => res.json(error.errors));
+                .then(result => res.json({
+                    status: 'success',
+                    body: result
+                }))
+                .catch(error => res.json({
+                    status: 'error',
+                    body: error.errors
+                }));
         })
 
     app.route('/users/:user_id')
