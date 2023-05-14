@@ -6,6 +6,9 @@ module.exports = app => {
     app.route('/users')
         .get((req, res) => {
             Users.findAll({
+                    attributes: {
+                        exclude: ['user_password']
+                    },
                     include: [{
                         model: Roles,
                         attributes: ['role_name']
