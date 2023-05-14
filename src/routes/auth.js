@@ -27,7 +27,7 @@ module.exports = app => {
                     var passDecrypted = bytes.toString(CryptoJS.enc.Utf8);
                     // If passwords do not match show message
                     if (req.body.user_password !== passDecrypted) return res.status(401).send({
-                        message: "El password es incorrecto",
+                        message: "La contraseña es incorrecta!",
                         auth: false,
                         token: null
                     });
@@ -38,7 +38,7 @@ module.exports = app => {
                         expiresIn: 60 * 60 * 24
                     });
                     res.status(200).send({
-                        message: "Acceso correcto",
+                        message: "Acceso correcto!",
                         auth: true,
                         token: token,
                         user_fullname: result.user_fullname,
