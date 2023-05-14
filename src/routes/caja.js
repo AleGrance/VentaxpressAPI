@@ -1,9 +1,20 @@
 module.exports = app => {
     const Caja = app.db.models.Caja;
+    const Estado = app.db.models.Estado;
+    const Users = app.db.models.Users;
 
     app.route('/caja')
         .get((req, res) => {
             Caja.findAll({
+                    include: [{
+                            model: Estado,
+                            attributes: ['descripcion_estado']
+                        },
+                        {
+                            model: Users,
+                            attributes: ['user_fullname']
+                        }
+                    ],
                     order: [
                         ['fecha_apertura', 'ASC']
                     ]
