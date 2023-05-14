@@ -1,10 +1,16 @@
 var CryptoJS = require("crypto-js");
 module.exports = app => {
     const Users = app.db.models.Users;
+    const Roles = app.db.models.Roles;
 
     app.route('/users')
         .get((req, res) => {
-            Users.findAll()
+            Users.findAll({
+                    include: [{
+                        model: Roles,
+                        attributes: ['role_name']
+                    }]
+                })
                 .then(result => res.json(result))
                 .catch(error => {
                     res.status(402).json({

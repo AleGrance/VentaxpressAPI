@@ -9,6 +9,10 @@ module.exports = (sequelize, DataType) => {
         user_name: {
             type: DataType.STRING,
             allowNull: false,
+            unique: {
+                msg: 'El username ingresado ya existe',
+                fields: ['user_name']
+            },
             validate: {
                 notEmpty: false
             }
