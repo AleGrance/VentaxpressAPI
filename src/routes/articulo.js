@@ -1,13 +1,18 @@
 module.exports = app => {
     const Articulo = app.db.models.Articulo;
+    const Proveedor = app.db.models.Proveedor;
 
     app.route('/articulo')
         .get((req, res) => {
             Articulo.findAll({
-                order: [
-                    ['nombre_articulo', 'ASC']
-                ]
-            })
+                    include: [{
+                        model: Proveedor,
+                        attributes: ['nom_proveedor']
+                    }],
+                    order: [
+                        ['nombre_articulo', 'ASC']
+                    ]
+                })
                 .then(result => res.json(result))
                 .catch(error => {
                     res.status(412).json({
