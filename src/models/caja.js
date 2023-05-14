@@ -45,11 +45,6 @@ module.exports = (sequelize, DataTypes) => {
         cambio_final: {
             type: DataTypes.INTEGER,
             allowNull: true
-        },
-        estado: {
-            type: DataTypes.INTEGER,
-            allowNull: true,
-            default: 1
         }
     });
 
@@ -65,6 +60,12 @@ module.exports = (sequelize, DataTypes) => {
         Caja.belongsTo(models.Users, {
             foreignKey: {
                 name: 'user_id',
+                allowNull: false
+            }
+        });
+        Caja.belongsTo(models.Estado, {
+            foreignKey: {
+                name: 'id_estado',
                 allowNull: false
             }
         });
