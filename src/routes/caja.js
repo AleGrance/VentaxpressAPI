@@ -76,4 +76,19 @@ module.exports = app => {
                     });
                 })
         })
+
+    app.route('/cajaByUser/:user_id')
+        .get((req, res) => {
+            Caja.count({
+                    where: {
+                        user_id: req.params.user_id,
+                        id_estado: 1
+                    }
+                })
+                .then(result => res.json(result))
+                .catch(error => res.json({
+                    status: 'error',
+                    body: error
+                }))
+        })
 };
