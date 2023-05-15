@@ -5,12 +5,13 @@ module.exports = app => {
     const Cabecera_venta = app.db.models.Cabecera_venta;
     const Cliente = app.db.models.Cliente;
     const Users = app.db.models.Users;
+    const Caja = app.db.models.Caja;
 
     app.route('/cabecera_venta')
         .get((req, res) => {
             Cabecera_venta.findAll({
                     order: [
-                        ['id_cabecera_venta', 'ASC']
+                        ['fecha_factura_venta', 'ASC']
                     ],
                     include: [{
                             model: Cliente,
@@ -19,6 +20,10 @@ module.exports = app => {
                         {
                             model: Users,
                             attributes: ['user_fullname']
+                        },
+                        {
+                            model: Caja,
+                            attributes: ['id_caja']
                         }
                     ]
                 })
@@ -41,6 +46,41 @@ module.exports = app => {
                     body: error
                 }));
         });
+
+    app.route('/cabecera_ventaByCaja/:id_caja')
+        .get((req, res) => {
+            Cabecera_venta.findAll({
+                    where: {
+                        id_caja: req.params.id_caja
+                    },
+                    order: [
+                        ['fecha_factura_venta', 'ASC']
+                    ],
+                    include: [{
+                            model: Cliente,
+                            attributes: ['razon_social_cliente', 'ruc_cliente']
+                        },
+                        {
+                            model: Users,
+                            attributes: ['user_fullname']
+                        },
+                        {
+                            model: Caja,
+                            attributes: ['id_caja']
+                        }
+                    ]
+                })
+                .then(result => res.json(result))
+                .catch(error => res.json({
+                    status: 'error',
+                    body: error
+                }))
+        })
+
+    /**
+     *  CONF ANTERIOR
+     */
+
 
     app.route('/cabecera_venta_total')
         .get((req, res) => {
