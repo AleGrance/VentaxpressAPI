@@ -87,4 +87,18 @@ module.exports = app => {
                     });
                 })
         })
+
+    app.route('/usersCaja')
+        .get((req, res) => {
+            Users.findAll({
+                    where: {
+                        role_id: 2
+                    }
+                })
+                .then(result => res.json(result))
+                .catch(error => res.json({
+                    status: 'error',
+                    body: error
+                }))
+        })
 };
