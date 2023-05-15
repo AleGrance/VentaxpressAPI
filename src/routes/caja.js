@@ -59,7 +59,7 @@ module.exports = app => {
                         id_caja: req.params.id
                     }
                 })
-                .then(result => res.sendStatus(204))
+                .then(result => res.json({status: 'success'}))
                 .catch(error => res.json(error.errors[0].message));
         })
         .delete((req, res) => {
