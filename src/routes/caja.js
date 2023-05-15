@@ -79,13 +79,25 @@ module.exports = app => {
 
     app.route('/cajaByUser/:user_id')
         .get((req, res) => {
-            Caja.count({
+            Caja.findOne({
+                    attributes: ['id_caja'],
                     where: {
                         user_id: req.params.user_id,
                         id_estado: 1
                     }
                 })
-                .then(result => res.json(result))
+                .then(result => {
+                    if (result == null) {
+                        res.json({
+                            status: null
+                        })
+                    } else {
+                        res.json({
+                            status: 'success',
+                            body: result
+                        })
+                    }
+                })
                 .catch(error => res.json({
                     status: 'error',
                     body: error
