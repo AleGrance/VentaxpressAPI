@@ -68,12 +68,11 @@ module.exports = app => {
             Users.update(req.body, {
                     where: req.params
                 })
-                .then(result => res.sendStatus(204))
-                .catch(error => {
-                    res.status(412).json({
-                        msg: error.message
-                    });
-                })
+                .then(result => res.json({
+                    status: 'success'
+                }))
+                .catch(error =>
+                    res.status(412).json(error.message))
         })
         .delete((req, res) => {
             //const id = req.params.id;
