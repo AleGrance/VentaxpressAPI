@@ -18,8 +18,14 @@ module.exports = app => {
 
         .post((req, res) => {
             Billete.create(req.body)
-                .then(result => res.json(result))
-                .catch(error => res.json(error.errors[0].message));
+                .then(result => res.json({
+                    status: 'success',
+                    body: result
+                }))
+                .catch(error => res.json({
+                    status: 'error',
+                    body: error
+                }));
         });
 
     app.route('/billete/:id')

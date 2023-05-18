@@ -1,13 +1,25 @@
 module.exports = app => {
     const Arqueo = app.db.models.Arqueo;
+    const Billete = app.db.models.Billete;
+    const Users = app.db.models.Users;
+    const Caja = app.db.models.Caja;
 
     app.route('/arqueo')
         .get((req, res) => {
             Arqueo.findAll({
-                order: [
-                    ['fecha', 'ASC']
-                ]
-            })
+                    include: [{
+                            model: Billete,
+                            attributes: ['denominacion']
+                        },
+                        {
+                            model: Users,
+                            attributes: ['user_fullname']
+                        }
+                    ],
+                    order: [
+                        ['fecha', 'ASC']
+                    ]
+                })
                 .then(result => res.json(result))
                 .catch(error => {
                     res.status(412).json({
@@ -18,8 +30,14 @@ module.exports = app => {
 
         .post((req, res) => {
             Arqueo.create(req.body)
-                .then(result => res.json(result))
-                .catch(error => res.json(error.errors[0].message));
+                .then(result => res.json({
+                    status: 'success',
+                    body: result
+                }))
+                .catch(error => res.json({
+                    status: 'error',
+                    body: error
+                }));
         });
 
     app.route('/arqueo/:id')
