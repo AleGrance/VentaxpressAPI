@@ -12,10 +12,10 @@ module.exports = app => {
     app.route('/auth')
         .post((req, res) => {
             Users.findOne({
-                    where: {
-                        user_name: req.body.user_name
-                    }
-                })
+                where: {
+                    user_name: req.body.user_name
+                }
+            })
                 .then(result => {
                     // If user doesn't exists show message
                     if (!result) return res.status(404).send({
