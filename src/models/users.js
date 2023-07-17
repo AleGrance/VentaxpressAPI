@@ -77,12 +77,12 @@ module.exports = (sequelize, DataType) => {
         });
 
         // Caja
-        Users.hasMany(models.Caja, {
-            foreignKey: {
-                name: 'id_caja',
-                allowNull: false
-            }
-        });
+        // Users.hasMany(models.Caja, {
+        //     foreignKey: {
+        //         name: 'id_caja',
+        //         allowNull: false
+        //     }
+        // });
     };
 
     return Users;
