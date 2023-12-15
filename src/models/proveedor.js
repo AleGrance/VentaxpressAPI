@@ -27,16 +27,25 @@ module.exports = (sequelize, DataType) => {
             type: DataType.INTEGER,
             allowNull: false
         }
-    });
+    }, { freezeTableName: true });
 
     Proveedor.associate = (models) => {
-        Proveedor.hasMany(models.Articulo);
+        // Articulo
+        Proveedor.hasMany(models.Articulo, {
+            foreignKey: {
+                name: 'id_proveedor',
+                allowNull: false
+            }
+        });
+
+        // Cabecera_compra
+        Proveedor.hasMany(models.Cabecera_compra, {
+            foreignKey: {
+                name: 'id_proveedor',
+                allowNull: false
+            }
+        });
     };
-    
-    Proveedor.associate = (models) => {
-        Proveedor.hasMany(models.Cabecera_compra);
-    };
-    
 
     return Proveedor;
 };

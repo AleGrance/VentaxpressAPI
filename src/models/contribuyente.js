@@ -39,11 +39,24 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: true
         },
 
-    });
+    }, { freezeTableName: true });
 
     Contribuyente.associate = (models) => {
-        Contribuyente.hasMany(models.Plan_de_cuenta);
-        Contribuyente.hasMany(models.Cabecera_compra);
+        // Plan_de_cuenta
+        Contribuyente.hasMany(models.Plan_de_cuenta, {
+            foreignKey: {
+                name: 'id_contribuyente',
+                allowNull: false
+            }
+        });
+
+        // Cabecera_compra
+        Contribuyente.hasMany(models.Cabecera_compra, {
+            foreignKey: {
+                name: 'id_contribuyente',
+                allowNull: false
+            }
+        });
     };
 
     return Contribuyente;

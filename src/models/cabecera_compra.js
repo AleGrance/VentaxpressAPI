@@ -46,11 +46,24 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             allowNull: false
         },
-    });
+    }, { freezeTableName: true });
 
     Cabecera_compra.associate = (models) => {
-        Cabecera_compra.belongsTo(models.Proveedor);
-        Cabecera_compra.belongsTo(models.Contribuyente);
+        Cabecera_compra.belongsTo(models.Proveedor, {
+            foreignKey: {
+                name: 'id_proveedor',
+                default: 1,
+                allowNull: false
+            }
+        });
+
+        Cabecera_compra.belongsTo(models.Contribuyente, {
+            foreignKey: {
+                name: 'id_contribuyente',
+                default: 1,
+                allowNull: false
+            }
+        });
     };
 
     return Cabecera_compra;

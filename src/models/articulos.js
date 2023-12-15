@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
             default: 1,
             allowNull: false
         }
-    });
+    }, { freezeTableName: true });
 
     Articulo.associate = (models) => {
         Articulo.belongsTo(models.Proveedor, {
@@ -37,7 +37,17 @@ module.exports = (sequelize, DataTypes) => {
                 allowNull: false
             }
         });
+
+        Articulo.belongsTo(models.Estado, {
+            foreignKey: {
+                name: 'id_estado',
+                default: 1,
+                allowNull: false
+            }
+        });
     };
+
+
 
     return Articulo;
 };

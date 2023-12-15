@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         }
-    });
+    }, { freezeTableName: true });
 
     /**
      * 
@@ -26,6 +26,15 @@ module.exports = (sequelize, DataTypes) => {
                 allowNull: false
             }
         });
+
+        // Articulo
+        Estado.hasMany(models.Articulo, {
+            foreignKey: {
+                name: 'id_estado',
+                allowNull: false
+            }
+        });
+
     };
 
     return Estado;

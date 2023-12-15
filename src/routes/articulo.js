@@ -3,6 +3,7 @@ const Sequelize = require('sequelize');
 module.exports = app => {
     const Articulo = app.db.models.Articulo;
     const Proveedor = app.db.models.Proveedor;
+    const Estado = app.db.models.Estado;
 
     app.route('/articulo')
         .get((req, res) => {
@@ -10,7 +11,10 @@ module.exports = app => {
                 include: [{
                     model: Proveedor,
                     attributes: ['nom_proveedor']
-                }],
+                }, {
+                    model: Estado,
+                    attributes: ['descripcion_estado']
+                } ],
                 order: [
                     ['nombre_articulo', 'ASC']
                 ]
@@ -115,6 +119,9 @@ module.exports = app => {
             include: [{
                 model: Proveedor,
                 attributes: ['nom_proveedor']
+            }, {
+                model: Estado,
+                attributes: ['descripcion_estado']
             }],
             order: [
                 ['nombre_articulo', 'ASC']
