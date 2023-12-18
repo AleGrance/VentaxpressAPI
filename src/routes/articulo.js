@@ -14,7 +14,7 @@ module.exports = app => {
                 }, {
                     model: Estado,
                     attributes: ['descripcion_estado']
-                } ],
+                }],
                 order: [
                     ['nombre_articulo', 'ASC']
                 ]
@@ -40,6 +40,31 @@ module.exports = app => {
                     body: error.errors
                 }));
         });
+
+    app.route('/articulosActivos')
+        .get((req, res) => {
+            Articulo.findAll({
+                where: {
+                    id_estado: 1
+                },
+                include: [{
+                    model: Proveedor,
+                    attributes: ['nom_proveedor']
+                }, {
+                    model: Estado,
+                    attributes: ['descripcion_estado']
+                }],
+                order: [
+                    ['nombre_articulo', 'ASC']
+                ]
+            })
+                .then(result => res.json(result))
+                .catch(error => {
+                    res.status(412).json({
+                        msg: error.message
+                    });
+                });
+        })
 
     app.route('/articulo/:id')
         .get((req, res) => {
@@ -84,54 +109,54 @@ module.exports = app => {
     app.route('/articuloFiltered').post((req, res) => {
         //var order = req.body.order[0];
         var search_keyword = req.body.search.value.replace(/[^a-zA-Z 0-9.]+/g, '').split(" ");
-      
+
         return Articulo.count().then(counts => {
-          var condition = "";
-      
-          for (var searchable of search_keyword) {
-            if (searchable != "") {
-              if (condition != "") {
-                condition += " OR ";
-              }
-              condition += " nombre_articulo ilike '%" + searchable + "%' ";
-              condition += " OR nombre_articulo ilike '%" + searchable + "%' ";
+            var condition = "";
+
+            for (var searchable of search_keyword) {
+                if (searchable != "") {
+                    if (condition != "") {
+                        condition += " OR ";
+                    }
+                    condition += " nombre_articulo ilike '%" + searchable + "%' ";
+                    condition += " OR nombre_articulo ilike '%" + searchable + "%' ";
+                }
             }
-          }
-      
-          var result = {
-            data: [],
-            recordsTotal: 0,
-            recordsFiltered: 0
-          };
-      
-          if (!counts) {
-            return res.json(result);
-          }
-      
-          result.recordsTotal = counts;
-      
-          console.log(condition);
-      
-          Articulo.findAndCountAll({
-            offset: req.body.start,
-            limit: req.body.length,
-            where: Sequelize.literal(condition),
-            include: [{
-                model: Proveedor,
-                attributes: ['nom_proveedor']
-            }, {
-                model: Estado,
-                attributes: ['descripcion_estado']
-            }],
-            order: [
-                ['nombre_articulo', 'ASC']
-              ]
-          }).then(response => {
-            result.recordsFiltered = response.count;
-            result.data = response.rows;
-            res.json(result);
-          });
+
+            var result = {
+                data: [],
+                recordsTotal: 0,
+                recordsFiltered: 0
+            };
+
+            if (!counts) {
+                return res.json(result);
+            }
+
+            result.recordsTotal = counts;
+
+            console.log(condition);
+
+            Articulo.findAndCountAll({
+                offset: req.body.start,
+                limit: req.body.length,
+                where: Sequelize.literal(condition),
+                include: [{
+                    model: Proveedor,
+                    attributes: ['nom_proveedor']
+                }, {
+                    model: Estado,
+                    attributes: ['descripcion_estado']
+                }],
+                order: [
+                    ['nombre_articulo', 'ASC']
+                ]
+            }).then(response => {
+                result.recordsFiltered = response.count;
+                result.data = response.rows;
+                res.json(result);
+            });
         });
-      });
-      
+    });
+
 };
